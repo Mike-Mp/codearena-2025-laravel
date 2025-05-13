@@ -22,6 +22,7 @@ class PostFactory extends Factory
             'body' => fake()->paragraph(10),
             'image' => 'https://picsum.photos/id/' . $this->faker->numberBetween(1, 50) . '/800/400',
             'slug' => fake()->slug(),
+            'published_at' => fake()->optional(0.7, null)->dateTimeBetween('-1 year', '+1 month')
         ];
     }
 }

@@ -15,6 +15,27 @@ class Post extends Model
         'published_at' => 'datetime',
     ];
 
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at')
+        ->where('published_at', '<=', now());
+    }
+
+    public function isPublished()
+    {
+        return $this->published_at && $this->published_at <= now();
+    }
+
+    public function scopeHasImage()
+    {
+        return $this->whereNotNull('image')->where('image', '!=', '');
+    }
+
+    public function scopePromoted()
+    {
+        return $this->whereNotFalse('promoted')->where('promoted', '!=', false);
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
