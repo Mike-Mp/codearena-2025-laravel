@@ -3,6 +3,9 @@
         <a href="{{ route('posts') }}">
             Blog
         </a>
+        <a href="{{ route('promoted') }}">
+            Promoted
+        </a>
         <div>
             <a href="/" class="-m-1.5 p-1.5">
             <span class="sr-only">Netstudio</span>

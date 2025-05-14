@@ -13,4 +13,4 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
 
 Route::get('/authors/{user}', [PostController::class, 'index'])->name('author');
 
-Route::get('/promoted', [PostController::class, 'promoted'])->name('post');
+Route::get('/promoted', [PostController::class, 'promoted'])->name('promoted');

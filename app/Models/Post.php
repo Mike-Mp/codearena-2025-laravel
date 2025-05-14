@@ -33,7 +33,7 @@ class Post extends Model
 
     public function scopePromoted()
     {
-        return $this->whereNotFalse('promoted')->where('promoted', '!=', false);
+        return $this->where('promoted', true);
     }
 
     public function author()

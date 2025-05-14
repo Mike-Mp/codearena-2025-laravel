@@ -12,6 +12,11 @@
       <div class="mt-16 font-bold">
         <a href="">{{ $post->author->name }}</a>
       </div>
+
+    <form id="comment-form" class="flex flex-col">
+      <input type="text" id="name" required name="name" placeholder="Name" />
+      <textarea id="body" required placeholder="Body..."></textarea> 
+    </form>
     </div>
   </div>
 @endsection
