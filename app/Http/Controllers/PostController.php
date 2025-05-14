@@ -25,6 +25,9 @@ class PostController extends Controller
         if (!$post->isPublished()) {
             abort(404);
         }
+
+        $post->load('comments.user');
+
         return view('posts.show', compact('post'));
     }
 

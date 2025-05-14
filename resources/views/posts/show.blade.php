@@ -13,10 +13,31 @@
         <a href="">{{ $post->author->name }}</a>
       </div>
 
-    <form id="comment-form" class="flex flex-col">
-      <input type="text" id="name" required name="name" placeholder="Name" />
-      <textarea id="body" required placeholder="Body..."></textarea> 
+    {{-- <section>
+      @foreach ($post->relations->comments as $comment)
+        $comment->name 
+      @endforeach
+    </section> --}}
+
+    <form action="{{ route('comment', $post)  }}" method="POST" id="comment-form" class="flex flex-col">
+      <input value="{{ old('name') }}" type="text" id="name" required name="name" placeholder="Name" 
+       />
+      @error('name')
+        <div>
+          {{ $message  }}
+        </div>
+      @enderror
+      <textarea id="body" required placeholder="Body...">{{old('body')}}</textarea> 
+      <button type="submit">Submit</button>
+
+
+      @error('body')
+        <div>
+          {{$message}}
+        </div>
+      @enderror
     </form>
+      {{-- <div><a href="/admin">Login</a> to create a comment</div> --}}
     </div>
   </div>
 @endsection
