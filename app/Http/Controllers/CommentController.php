@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
@@ -15,29 +16,28 @@ class CommentController extends Controller
     public function store(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:100',
             'body' => 'required|string',
         ]);
 
         $comment = new Comment([
             'name' => $validated['name'],
             'body' => $validated['body'],
-            'user_id' => Auth::id(),
+            'post_id' => $post->id
         ]);
 
-        $post->$comments()->save($comment);
+        $post->comments()->save($comment);
 
-        return redirect()->back()->with('success', 'Comment added!');
+        return redirect()->route('post', $post)->with('success', 'Comment added!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comment $comment)
     {
-        $this->authorize('delete', $comment);
-
+        $post = $comment->post;
         $comment->delete();
-        return redirect()->back()->with('success', 'Comment deleted!');
+        return redirect()->route('post',$post)->with('success', 'Comment deleted!');
     }
 }

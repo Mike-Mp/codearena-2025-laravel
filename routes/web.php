@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,8 +16,7 @@ Route::get('/authors/{user}', [PostController::class, 'index'])->name('author');
 
 Route::get('/promoted', [PostController::class, 'promoted'])->name('promoted');
 
-Route::post('/comments', [CommentsController::class, 'store'])->name('comment');
+Route::post('/posts/{post:slug}/comments', [CommentController::class, 'store'])->name('comment');
 
-Route::prefix('admin')->name('admin.')->middleware(['auth:admin'])->group(function () {
-    Route::resource('comments', CommentController::class)->except(['store']);
-});
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->name('comment.delete');

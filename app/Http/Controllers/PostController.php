@@ -26,9 +26,9 @@ class PostController extends Controller
             abort(404);
         }
 
-        $post->load('comments.user');
+        $comments = $post->comments()->orderByDesc('created_at')->get();
 
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post', 'comments'));
     }
 
     public function promoted()

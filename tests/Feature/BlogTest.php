@@ -387,10 +387,22 @@ class BlogTest extends TestCase
     }
 
     /**
-     * TOD:Ensure that blog posts page has pagination.
+     * TODO:Ensure that blog posts page has pagination.
      */
     public function testBlogPostsPageHasPagination()
     {
-        $this->markTestIncomplete();
+        $user = User::factory()->create();
+        $post = Post::factory()->count(20)->create([
+            'user_id' => $user->id,
+            'published_at' => now(),
+        ]);
+        $response = $this->get(route('posts'));
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('Showing')
+            ->assertSee('1')
+            ->assertSee('to')
+            ->assertSee('9');
     }
 }
